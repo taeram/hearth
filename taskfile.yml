@@ -1,0 +1,21 @@
+version: "3"
+
+tasks:
+  deploy:
+    cmds:
+      - docker compose pull {{.CLI_ARGS}}
+      - docker compose up --no-start --remove-orphans {{.CLI_ARGS}}
+      - docker compose restart {{.CLI_ARGS}}
+
+  logs:
+    cmd: docker compose logs -f --tail=100 {{.CLI_ARGS}}
+
+  start:
+    cmds:
+      - docker compose pull
+      - docker compose up --no-start --remove-orphans --no-build
+      - docker compose stop
+      - docker compose start
+
+  stop:
+    cmd: docker compose start
